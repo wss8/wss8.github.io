@@ -1,0 +1,1623 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="值类别、右值引用、移动构造、完美转发, C++,Java,Linux,C++11,Python,QT">
+    <meta name="description" content="笑对生活">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>值类别、右值引用、移动构造、完美转发 | wss&#39;s NoteBook</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">wss&#39;s NoteBook</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">wss&#39;s NoteBook</div>
+        <div class="logo-desc">
+            
+            笑对生活
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">值类别、右值引用、移动构造、完美转发</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C-11/">
+                                <span class="chip bg-color">C++11</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/C-11/" class="post-category">
+                                C++11
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-21
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    24 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>[TOC]</p>
+<p>本文均是个人初次接触相关概念，通过实验做出的总结，没有细致查阅相关规范</p>
+<h1 id="1、值类别"><a href="#1、值类别" class="headerlink" title="1、值类别"></a>1、值类别</h1><h2 id="1-1、右值引用的引入"><a href="#1-1、右值引用的引入" class="headerlink" title="1.1、右值引用的引入"></a>1.1、右值引用的引入</h2><p><strong>引用的本质</strong></p>
+<ul>
+<li>编译器隐藏了引用变量内部保存引用对象的地址的事实</li>
+<li>引用变量也可以使用const修饰：const引用 和 non-const引用</li>
+<li>const引用代表编译器层面禁止修改引用变量的值（不能再直接出现在赋值符号左边），但依然可以间接修改</li>
+</ul>
+<p><strong>左值引用（<code>int&amp;</code>）</strong></p>
+<ul>
+<li>左值引用可以引用一个lvalue（<code>int&amp; r = i</code>） </li>
+<li>non-const左值引用不能引用一个prvalue(纯右值)，const左值引用可以绑定到一个prvalue(如：<code>const int&amp; r = 10; const Test&amp; = Test();</code>)</li>
+</ul>
+<p><strong>右值引用(<code>int&amp;&amp;</code>)</strong></p>
+<ul>
+<li>右值引用使得non-const引用变量能够引用prvalue（<code>int&amp;&amp; r = 10</code>），新特性解决了C++98/03的不足，且兼容</li>
+<li>反汇编发现：右值引用和const左值引用生成的汇编代码完全一致</li>
+<li>右值引用不能用来引用一个lvalue<ul>
+<li>可以使用 <code>static_cast&lt;int&amp;&amp;&gt;(lvalue)</code>  将lvalue转为xvalue，这样就可以引用了</li>
+<li><code>std::move()</code> 封装了 上述的强制类型转换过程，并赋予了新的语义（即期望临时对象资源被转移，本身不提供转移资源功能）</li>
+</ul>
+</li>
+<li>临时对象的生命只有一行，右值引用能够有效的利用临时对象持有的系统资源，实现资源转移，避免不必要的大量复制<ul>
+<li>函数传参可能传入临时对象，在C++98/03中会使用<code>const Test&amp;</code> 接收，虽可以自主选择拷贝资源或转移资源，但倾向于深拷贝资源</li>
+<li>C++11在兼容过去的同时，可以使用右值引用接收实参，倾向于自己将要转移资源，而不是拷贝（虽然也可以，但不这样干）</li>
+</ul>
+</li>
+<li>注意：转移资源后应该断开临时对象释放资源的句柄，临时对象才可以安全析构**<h2 id="1-2、值类别（value-categories）"><a href="#1-2、值类别（value-categories）" class="headerlink" title="1.2、值类别（value categories）"></a>1.2、值类别（value categories）</h2></li>
+</ul>
+<p><strong>明确表达式概念</strong></p>
+<ul>
+<li>表达式是_运算符_及其_操作数_的序列，语句是指一条语句，以分号作为结束标志</li>
+<li>因此一条语句可能不止一个表达式。如：int a = func(100);   a = (a &gt; b);   a = ((a &gt; b ? a : b) == a) ? a : b;</li>
+<li>构造函数的直接调用创建临时对象，属于函数调用，因此也是表达式。T var = T();  由两个表达式组成，T()是子表达式</li>
+</ul>
+<p><strong>每个C++表达式都有两个独立的属性: 类型 （type）和 值类别（value categories）</strong></p>
+<ul>
+<li>类型：用来表示表达式结果类型的属性<ul>
+<li>可以使用decltype推测表达式结果值的类型。如：decltype((x)) 、decltype(x = 10) </li>
+</ul>
+</li>
+<li>值类别：用来描述表达式结果值的一个属性，通过表达式的值对表达式进行分类<ul>
+<li>在最早的C中，lvalue是指 赋值符号左边的操作数，后来C中的 lvalue 代表locator value，用作定位标识对象</li>
+<li>C++11之前只有两类，lvalue 和 rvalue （概念不够明确且有争议）</li>
+<li>C++11引入移动语义的引入，值类别被重新定义，引入了 prvalue（纯右值）, xvalue（将亡值）, glvalue（泛左值）的概念<ul>
+<li>prvalue 和 xvalue 可称为 rvalue</li>
+<li>lvalue 和 xvalue 可称为 glvalue</li>
+<li>每个表达式的值类别可以是 lvalue，xvalue 或 prvalue中的一个，或者说是 rvalue、glvalue中的一个</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2020/png/1565164/1608353466622-4db36e6f-cf30-4e6c-ac0c-b2c319ec23f3.png#align=left&amp;display=inline&amp;height=91&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=92&amp;originWidth=379&amp;size=15235&amp;status=done&amp;style=none&amp;width=374" alt="image.png"></li>
+</ul>
+</li>
+<li>定义<ul>
+<li>have identity and cannot be moved from are called <em>lvalue</em> expressions;</li>
+<li>have identity and can be moved from are called <em>xvalue</em> expressions;</li>
+<li>do not have identity and can be moved from are called <em>prvalue</em> (“pure rvalue”) expressions;</li>
+<li>个人理解的 have identity：程序中有对象的名字，指针或引用（直接表现出来的，而不是通过重载间接获得）<ul>
+<li>如：const int&amp; i = 10；// 10是prvalue， 中间会被转换为xvalue，被 i 引用</li>
+</ul>
+</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2020/png/1565164/1608352358168-fcd1c86f-2b4b-4e77-b5f5-61b268967bff.png#align=left&amp;display=inline&amp;height=209&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=272&amp;originWidth=711&amp;size=80634&amp;status=done&amp;style=none&amp;width=547" alt="image.png"></li>
+</ul>
+</li>
+<li>rvalue特性<ul>
+<li>内置地址运算符不能获取rvalue的地址。如：&amp;10； &amp;Test();   &amp;(Test().a);  都是错误的（Test类重载&amp;可以返回this，但没用）</li>
+<li>rvalue可用于初始化const左值引用，在这种情况下，由rvalue标识的对象的生存期将延长，直到引用范围终止</li>
+<li>rvalue不能用作内置赋值或复合赋值运算符的左侧操作数。如：Test().a = 10; 10+=10;  都是错误的，注意Test() = Test()调用的类中重载的赋值操作符</li>
+<li>rvalue可用于初始化右值引用，在这种情况下，由rvalue标识的对象的生存期将延长，直到引用范围终止</li>
+<li>当用作函数参数且有两个重载的函数（ 一个右值引用参数和一个const左值引用参数）时, 右值将绑定到右值引用的哪个函数（因此，如果存在移动构造和拷贝构造，一个rvalue参数调用移动构造函数）<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>int g = 20;<br>int&amp; func() { return g; }<br>int&amp;&amp; xvalue() { return static_cast&lt;int&amp;&amp;&gt;(g); } </p>
+<p>class Test<br>{<br>public:<br>    int a;<br>    //Test* operator &amp; (){ return this; }<br>};</p>
+<p>int main()<br>{<br>    // 猜测：lvalue表达式的结果为lvalue，所以下面语句a是变量，再后来a又是lvalue<br>    int a = 10;     // lvalue表达式 ，10是prvalue，a是变量。<br>    bool f = false; // lvalue表达式，f是变量，false是prvalue<br>    int&amp; l = a;     // lvalue表达式， l是左值引用变量，a是lvalue<br>    int&amp;&amp; r = 10;   // lvalue表达式 ，r是右值引用变量，10是prvalue<br>    func();         // lvalue表达式<br>    int b = func(); // lvalue表达式 ，b是变量, func()也是lvalue表达式且表达式类型是int&amp;<br>    b = static_cast&lt;int&amp;&gt;(a); // lvalue表达式, static_cast&lt;int&amp;&gt;(a)也是一个lvalue表达式<br>    a = r;   // lvalue表达式，r是lvalue, a是lvalue<br>    a += r;  // lvalue表达式<br>    ++a;     // lvalue表达式<br>    int c = (a, r); // lvalue表达式 ，(a, r)是一个lvalue表达式,其中r是一个lvalue<br>    “Hello”;        // 这也是一个特殊的lvalue<br>    char arr[] = “World”; // “World”是lvalue, arr[i]是变量<br>    arr[0] = ‘a’;   // ‘a’是prvalue，可修改的原因是存储于只读存储区的字符串被拷贝一份到栈内</p>
+<pre><code>int d = (a &lt; b);  // lvalue表达式，(a &lt; b)是一个prvalue表达式，(a &lt; b)子表达式产生的结果为一个布尔值
+
+// 下面一行所有的表达式产生的结果都是prvalue, 他们都是prvalue表达式
+a++; a--; a + b; a % b; a &amp; b; a &lt;&lt; b; a &amp;&amp; b; a || b; !a; a &lt; b; a == b; a &gt;= b; &amp;a;
+
+Test t = Test(); // lvalue表达式，Test()是prvalue表达式
+
+t = std::move(Test());     // lvalue表达式。Test()是prvalue表达式，std::move(Test())是xvalue表达式
+d = xvalue();              // lvalue表达式，xvalue()是一个xvalue表达式且表达式类型为int&amp;&amp;
+d = static_cast&lt;int&amp;&amp;&gt;(g); // lvalue表达式，static_cast&lt;int&amp;&amp;&gt;(g)是xvalue表达式
+Test().a;                  // 整体是lvalue表达式，Test()是一个rvalue, Test().a是一个xvalue表达式
+
+return 0;</code></pre>
+<p>}<br>// 只列举部分。完整的可以查阅：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/value_category">https://en.cppreference.com/w/cpp/language/value_category</a></p>
+<pre><code>## 1.3、值类别的转换
+```cpp
+int main()
+{
+    int a = 10;    
+    bool f = false;
+
+    // 1. lvalue-&gt;prvalue
+    a = f;   
+    // 实际是语句会被分为两条指令
+    // movzx  eax, byte ptr [f]  
+    // mov    dword ptr[a], eax
+    // 发现这里发生了转换（lvalue-&gt;prvalue 或 gvalue-&gt;prvalue）
+
+    // 2. prvalue-&gt;xvalue
+    const int&amp; ci = 10;// 本质为将10放到一个临时局部变量里，引用变量引用局部变量，编译器层面禁止直接修改这个隐藏的局部变量,可以修改这个局部变量: const_cast&lt;int&amp;&gt;(ci) = 20
+    //const Test&amp; tt = Test(10);
+    // 实际是语句会被分为三条指令
+    // mov  dword ptr [ebp-54h],0Ah  
+    // lea  eax, [ebp - 54h]
+    // mov  dword ptr[ci], eax
+    // 存在引用，引用了这个临时变量，所以有identify
+    // 发生了prvalue-&gt;xvalue的转化
+    int&amp;&amp; rr = 10;
+    // mov  dword ptr[ebp - 3Ch], 0Ah
+    // lea  eax, [ebp - 3Ch]
+    // mov  dword ptr[rr], eax
+    // 发现和const int&amp; ci = 10;的汇编语句几乎一致，只是编译时ci不能再作为左操作数
+    // 也发生了prvalue-&gt;xvalue的转化
+    rr = 20; // 如果使用const右值引用，使得编译器层面禁止修改引用变量
+
+    // 3. lvalue-&gt;xvalue
+    int&amp; l_ref = static_cast&lt;int&amp;&gt;(a);
+    // lea  eax, [a]
+    // mov  dword ptr[l_ref], eax
+    int&amp;&amp; r_ref = static_cast&lt;int&amp;&amp;&gt;(a);
+    // lea  eax, [a]
+    // mov  dword ptr[r_ref], eax
+    // 右值引用本就和移动语义息息相关，使用右值引用应该就是想move，如果不move, 用const左值引用不香吗？
+    // static_cast&lt;int&amp;&amp;&gt;(a);是xvalue表达式
+    // static_cast&lt;int&amp;&gt;(a);是lvlaue表达式
+
+    return 0;
+}</code></pre>
+<h1 id="2、右值引用、移动构造与移动赋值"><a href="#2、右值引用、移动构造与移动赋值" class="headerlink" title="2、右值引用、移动构造与移动赋值"></a>2、右值引用、移动构造与移动赋值</h1><p>右值引用实现资源转移</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Test</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span><span class="token operator">*</span> m_pvalue <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 指向系统的堆资源</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">Test</span><span class="token punctuation">(</span><span class="token keyword">int</span> val <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// explicit</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">Test</span><span class="token punctuation">(</span><span class="token keyword">const</span> Test<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">const_cast</span><span class="token operator">&lt;</span>Test<span class="token operator">&amp;</span><span class="token operator">></span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">int</span> <span class="token keyword">operator</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> m_pvalue <span class="token operator">!=</span> <span class="token keyword">nullptr</span> <span class="token operator">?</span> <span class="token operator">*</span>m_pvalue <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    Test<span class="token operator">&amp;</span> <span class="token keyword">operator</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">const</span> Test<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">!=</span> <span class="token operator">&amp;</span>obj<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">delete</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">const_cast</span><span class="token operator">&lt;</span>Test<span class="token operator">&amp;</span><span class="token operator">></span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> <span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">~</span><span class="token function">Test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">delete</span> m_pvalue<span class="token punctuation">;</span>
+        m_pvalue <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">copy</span><span class="token punctuation">(</span><span class="token keyword">const</span> Test<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">delete</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token operator">*</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 资源的拷贝</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">void</span> <span class="token function">move</span><span class="token punctuation">(</span><span class="token keyword">const</span> Test<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">delete</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue <span class="token operator">=</span> obj<span class="token punctuation">.</span>m_pvalue<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 资源的转移</span>
+        obj<span class="token punctuation">.</span>m_pvalue <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">void</span> <span class="token function">move</span><span class="token punctuation">(</span>Test<span class="token operator">&amp;&amp;</span> obj<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"void move(Test&amp;&amp; obj)"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+        <span class="token keyword">delete</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>m_pvalue <span class="token operator">=</span> obj<span class="token punctuation">.</span>m_pvalue<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 资源的转移</span>
+        obj<span class="token punctuation">.</span>m_pvalue <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    Test op<span class="token punctuation">;</span>
+    op<span class="token punctuation">.</span><span class="token function">copy</span><span class="token punctuation">(</span><span class="token function">Test</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    op<span class="token punctuation">.</span><span class="token function">move</span><span class="token punctuation">(</span><span class="token function">Test</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Test <span class="token function">tmp</span><span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    op<span class="token punctuation">.</span><span class="token function">move</span><span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">move</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token comment" spellcheck="true">// std::move(tmp)为xvalue表达式，当rvalue用作函数参数且有两个重载的函数（ 一个右值引用参数和一个const左值引用参数）时</span>
+    <span class="token comment" spellcheck="true">// 右值将绑定到右值引用的那个函数（因此，如果存在移动构造和拷贝构造，rvalue参数调用移动构造函数）</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>tmp <span class="token operator">&lt;&lt;</span> <span class="token string">" == -1 说明资源被转移了"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>C++11引入了移动构造函数与赋值构造函数</p>
+<ul>
+<li>拷贝构造函数可以接收 lvalue 和 rvalue，但它实现的本义倾向于资源的深拷贝</li>
+<li>移动构造函数参数为右值引用，可以是const或非const右值引用，本义倾向于资源转移，一个类可以具有多个移动构造函数</li>
+<li><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/move_constructor">https://en.cppreference.com/w/cpp/language/move_constructor</a><pre class="line-numbers language-cpp"><code class="language-cpp"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<p>#include <iostream><br>using namespace std;</iostream></p>
+<p>class Test<br>{<br>    int* m_pvalue = nullptr;<br>public:<br>    Test(int val = 0) // explicit<br>    {<br>        cout &lt;&lt; “Constructor “ &lt;&lt; val &lt;&lt; endl;<br>        this-&gt;m_pvalue = new int(val);<br>    }<br>    Test(const Test&amp; obj)<br>    {<br>        cout &lt;&lt; “Copy Constructor” &lt;&lt; endl;<br>        this-&gt;m_pvalue = new int(*const_cast&lt;Test&amp;&gt;(obj));<br>    }<br>    int operator * () const<br>    {<br>        return m_pvalue != nullptr ? *m_pvalue : -1;<br>    }<br>    Test&amp; operator = (const Test&amp; obj)<br>    {<br>        cout &lt;&lt; “Copy Assignment operator” &lt;&lt; endl;<br>        if (this != &amp;obj)<br>        {<br>            delete this-&gt;m_pvalue;<br>            this-&gt;m_pvalue = new int(*const_cast&lt;Test&amp;&gt;(obj));<br>        }</p>
+<pre><code>    return *this;
+}
+~Test() {
+    cout &lt;&lt; "~Test() : " &lt;&lt; *(*this) &lt;&lt; endl;
+    delete m_pvalue;
+    m_pvalue = nullptr;
+}
+// 移动构造
+Test(Test&amp;&amp; obj) : m_pvalue(obj.m_pvalue)
+{
+    cout &lt;&lt; "Move Constructor" &lt;&lt; endl;
+    obj.m_pvalue = nullptr;
+}
+// 移动赋值
+Test&amp; operator = (const Test&amp;&amp; obj)
+{
+    if (this != &amp;obj)
+    {
+        cout &lt;&lt; "Move Assignment operator" &lt;&lt; endl;
+        delete this-&gt;m_pvalue;
+        this-&gt;m_pvalue = const_cast&lt;Test&amp;&amp;&gt;(obj).m_pvalue;
+        const_cast&lt;Test&amp;&gt;(obj).m_pvalue = nullptr;
+    }
+
+    return *this;
+}</code></pre>
+<p>};</p>
+<p>int main()<br>{<br>    Test t0(50);             // Constructor<br>    Test t1 = Test(100);     // Constructor + Move Constructor + ~Test() : -1 rvalue优先匹配移动构造(右值引用 )<br>    Test t2 = std::move(t0); // Move Constructor<br>    cout &lt;&lt; *t0 &lt;&lt; endl;    // -1<br>    cout &lt;&lt; *t1 &lt;&lt; endl;    // 100<br>    cout &lt;&lt; *t2 &lt;&lt; endl;    // 50</p>
+<pre><code>t0 = t1;                 // Copy Assignment operator
+cout &lt;&lt; *t0 &lt;&lt; " " &lt;&lt; *t1 &lt;&lt; endl;  // 100 100
+t0 = std::move(t1);      // Move Assignment operator
+cout &lt;&lt; *t0 &lt;&lt; " " &lt;&lt; *t1 &lt;&lt; endl;  // 100 -1
+
+string s1 = "wss";
+cout &lt;&lt; s1.c_str() &lt;&lt; "\t" &lt;&lt; (void*)(s1.c_str()) &lt;&lt; endl; // wss   0xbfbcf4ac
+string s2 = std::move(s1); // 调用basic_string(basic_string&amp;&amp; __str)窃取资源
+
+cout &lt;&lt; s1.c_str() &lt;&lt; "\t" &lt;&lt; (void*)(s1.c_str()) &lt;&lt; endl; // ""    0xbfbcf4ac
+cout &lt;&lt; s2.c_str() &lt;&lt; "\t" &lt;&lt; (void*)(s2.c_str()) &lt;&lt; endl; // wss    0xbfbcf4dc  
+// 发现移动构造后字符串的地址发生了改变，说明string的移动构造还是会执行深拷贝，效率不高
+
+string&amp;&amp; s3 = std::move(s2);
+s3 = "hello";
+cout &lt;&lt; s2.c_str() &lt;&lt; "\t" &lt;&lt; (void*)(s2.c_str()) &lt;&lt; endl; // hello    0xbfbcf4dc
+cout &lt;&lt; s3.c_str() &lt;&lt; "\t" &lt;&lt; (void*)(s3.c_str()) &lt;&lt; endl; // hello    0xbfbcf4dc
+
+return 0;</code></pre>
+<p>}</p>
+<pre><code>![image.png](https://cdn.nlark.com/yuque/0/2020/png/1565164/1608110040520-14b8bcb9-404a-4fbf-ad0a-abdaca2c807c.png#align=left&amp;display=inline&amp;height=314&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=380&amp;originWidth=797&amp;size=51832&amp;status=done&amp;style=none&amp;width=658)
+
+
+# 3、返回值优化(RVO)
+
+- RVO：返回值优化（Return Value Optimization），C++98已经支持的特性，是一个编译优化技术
+   - 函数返回时不调用拷贝构造或移动构造操作生成临时对象（省去了函数返回时的拷贝构造或移动构造）
+   - 初始化对象时不创建只用于初始化相同类型的另一个对象的临时对象
+   - g++编译器指定 -fno-elide-constructors 选项可以禁用该优化
+- NRVO: 命名返回值优化（Named Return Value Optimization），RVO的升级
+   - RVO是对匿名对象（临时对象）的优化，NRVO可以支持有名对象优化
+- 后文不严格区分两者，只当作是一种RVO优化技术
+
+```cpp
+#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+{
+    int* m_pvalue = nullptr;
+public:
+    Test(int val = 0) // explicit
+    {
+        cout &lt;&lt; "Constructor " &lt;&lt; hex &lt;&lt; val &lt;&lt; endl;
+        this-&gt;m_pvalue = new int(val);
+    }
+    Test(const Test&amp; obj)
+    {
+        cout &lt;&lt; "Copy Constructor" &lt;&lt; endl;
+        this-&gt;m_pvalue = new int(*const_cast&lt;Test&amp;&gt;(obj));
+    }
+    int operator * () const
+    {
+        return m_pvalue != nullptr ? *m_pvalue : -1;
+    }
+    Test&amp; operator = (const Test&amp; obj)
+    {
+        cout &lt;&lt; "Copy Assignment operator" &lt;&lt; endl;
+        if (this != &amp;obj)
+        {
+            delete this-&gt;m_pvalue;
+            this-&gt;m_pvalue = new int(*const_cast&lt;Test&amp;&gt;(obj));
+        }
+
+        return *this;
+    }
+    ~Test() {
+        cout &lt;&lt; "~Test() : " &lt;&lt; hex &lt;&lt; *(*this) &lt;&lt; endl;
+        delete m_pvalue;
+        m_pvalue = nullptr;
+    }
+    // 移动构造
+    Test(Test&amp;&amp; obj) : m_pvalue(obj.m_pvalue)
+    {
+        cout &lt;&lt; "Move Constructor" &lt;&lt; endl;
+        obj.m_pvalue = nullptr;
+    }
+    // 移动赋值
+    Test&amp; operator = (const Test&amp;&amp; obj)
+    {
+        if (this != &amp;obj)
+        {
+            cout &lt;&lt; "Move Assignment operator" &lt;&lt; endl;
+            delete this-&gt;m_pvalue;
+            this-&gt;m_pvalue = const_cast&lt;Test&amp;&amp;&gt;(obj).m_pvalue;
+            const_cast&lt;Test&amp;&gt;(obj).m_pvalue = nullptr;
+        }
+        return *this;
+    }
+};
+
+Test getA()
+{
+    cout &lt;&lt; "getA()" &lt;&lt; endl;
+    return Test(0xAAA); // C++98/03 关闭RVO时：生成临时对象Test(0xAAA)，函数返回，调用拷贝构造再次生成临时对象Test(0xAAA)，供调用者使用
+}
+Test getB()
+{
+    cout &lt;&lt; "getB()" &lt;&lt; endl;
+    Test tmp(0xBBB); // 有名对象
+
+    return tmp; // C++98/03 关闭RVO：函数返回时调用拷贝构造生成临时对象，析构tmp
+}
+
+Test&amp;&amp; getC()
+{
+    cout &lt;&lt; "getC()" &lt;&lt; endl;
+    Test tmp(0xCCC); // 生成局部对象
+    return std::move(tmp); 
+    // 由于返回值类型为右值引用，所以不会再调用拷贝构造或移动构造
+    // 这种错误和返回局部对象的左值引用或局部对象的指针原理一样。函数执行完栈帧销毁，局部对象失效
+}
+int main()
+{
+    /* vs2015执行过程(默认开启了RVO) */
+
+    Test t1(8); // 为t1分配内存（call Test::__autoclassinit2），再调用构造函数初始化
+    Test t2 = 8;
+    Test t3 = Test(8);
+    Test t4(Test(8));
+    // 开启RVO时，上方四条语句都仅调用一次普通构造，生成的汇编代码完全一致，说明没有生成Test(8)临时对象
+    // 关闭RVO时，t2,t3,t4调用了 普通构造 + 拷贝构造/移动构造 + 析构函数，说明生成了Test(8)临时对象
+    // 当编译选项使用c++17时，是否开启RVO, 都只调用普通构造
+
+    cout &lt;&lt; endl &lt;&lt; endl;
+
+    Test t5 = getA(); // 编译器行为：为t5分配内存，将t5内存地址传入eax寄存器，eax入栈，在A函数中调用构造函数进行初始化t5
+// 使用函数返回值初始化结构体变量时：用eax存变量地址，eax入栈，返回地址入栈，调用函数，新函数将变量地址（ebp+8）赋给ecx，再调用构造函数
+    Test t6(getA());  
+    // 开启RVO时, 上方两条语句都只调用一次普通构造，说明没有生成临时对象
+    // 关闭RVO时，都调用了 普通构造 + (移动构造+移动构造) / (拷贝构造+拷贝构造)
+
+    cout &lt;&lt; endl &lt;&lt; endl;
+
+    Test t7 = getB();  // NRVO
+    // 为t7分配内存，将t7地址传入eax寄存器, eax入栈，调用B函数，B函数中为tmp申请内存，调用构造函数初始化tmp,
+    // 再通过t7地址（ebp+8赋给ecx）调用移动构造函数，进行资源转移（或拷贝构造进行资源拷贝）
+    Test t8(getB());
+    // 开启RVO时, 上方两条语句都调用一次普通构造 + 移动构造/拷贝构造
+    //（gcc下只会调用一次普通构造, 使用objdump-S反汇编发现函数B在前言部分将t8地址(ebp+8)赋给了局部变量，局部变量又赋给ecx,调用构造函数初始化tmp其实初始化的是ecx指向的t8）
+    // 关闭RVO时，都调用了 普通构造 + (移动构造+移动构造) / (拷贝构造+拷贝构造)
+
+    cout &lt;&lt; endl &lt;&lt; endl;
+
+    t7 = getA();// 对于这种不是初始化的操作，必须得执行赋值操作，为啥？因为赋值操作函数可能需要执行一些其他操作(如释放资源等），肯定不能优化掉
+    // 编译器会选择一个局部变量的地址x入栈，A函数在x初始化对象, 通过eax返回对象地址，ecx存放t7地址，调用移动赋值操作
+    t5 = getB(); // 和上面做法类似
+    // 开启RVO时, t7所在行调用了普通构造 + 移动赋值/拷贝赋值， t8所在行调用了普通构造 + 移动构造/拷贝构造 + 移动赋值/拷贝赋值（gcc依旧会少了一个，原理前面解释过了）
+    // 关闭RVO时，都调用了 普通构造 + 移动构造/拷贝构造 + 移动赋值/拷贝赋值
+
+    //cout &lt;&lt; endl &lt;&lt; endl;
+
+    //t5 = getC();
+    //cout &lt;&lt; *t5 &lt;&lt; endl; // error 段错误或垃圾数据
+
+    return 0;
+}</code></pre>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/1565164/1608135908581-cdd3e220-9771-40a4-86dd-a29e5e067b14.png#align=left&amp;display=inline&amp;height=691&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=691&amp;originWidth=1443&amp;size=178897&amp;status=done&amp;style=none&amp;width=1443" alt="image.png"></p>
+<h1 id="4、万能引用与引用折叠"><a href="#4、万能引用与引用折叠" class="headerlink" title="4、万能引用与引用折叠"></a>4、万能引用与引用折叠</h1><p>模板函数传参时编译器推导时可能遇到下面四种特殊情况</p>
+<ul>
+<li>左值引用 + 右值引用   int&amp;  &amp;&amp;          -&gt;  int&amp;           </li>
+<li>左值引用 + 左值引用   int&amp;  &amp;            -&gt;   int&amp;</li>
+<li>右值引用 + 左值引用   int&amp;&amp;  &amp;          -&gt;  int&amp;</li>
+<li>右值引用 + 右值引用   int&amp;&amp;  &amp;&amp;       -&gt;  int&amp;&amp;</li>
+<li>编译器采用引用折叠，规则： 如果有左值引用那么就折叠为左值引用，否者就是右值引用<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;boost/type_index.hpp></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>using boost::typeindex::type_id_with_cvr;  // Effective Modern C++有介绍：可以查看编译器的模板推导类型结果</p>
+<p>template<typename t=""><br>void func(T&amp;&amp; parm) // 这样写就是万能引用：参数传递lvalue就是左值引用,传递rvalue就是右值引用<br>{<br>    cout &lt;&lt; “T: “ &lt;&lt; type_id_with_cvr<t>().pretty_name() &lt;&lt; endl;<br>    cout &lt;&lt; “parm: “ &lt;&lt; type_id_with_cvr&lt;decltype(parm)&gt;().pretty_name() &lt;&lt; endl;<br>}</t></typename></p>
+<p>template&lt;typename T, unsigned int N&gt;<br>void f1(T(&amp;arr)[N])<br>{<br>    cout &lt;&lt; N &lt;&lt; endl;<br>    cout &lt;&lt; “T: “ &lt;&lt; type_id_with_cvr<t>().pretty_name() &lt;&lt; endl;<br>    cout &lt;&lt; “arr: “ &lt;&lt; type_id_with_cvr&lt;decltype(arr)&gt;().pretty_name() &lt;&lt; endl;<br>}</t></p>
+<p>int main()<br>{<br>    int lvalue = 10;<br>    const int&amp; l_ref = lvalue;<br>    char arr[] = “wss”;</p>
+<pre><code>func(10);     // ==&gt; func&lt;int&gt;(10); -&gt; int&amp;&amp;  实参是rvalue所以形参是右值引用
+cout &lt;&lt; endl; 
+
+func(lvalue); // ==&gt; func&lt;int&amp;&gt;(lvalue); -&gt; int&amp; &amp;&amp;  -&gt;引用折叠 -&gt; int&amp;   实参是lvalue，所以形参是左值引用
+cout &lt;&lt; endl;
+
+// 参数为rvalue时, 组合为 int&amp;&amp; ; lvalue时 T被推导为int&amp;, 组合为int&amp; &amp;&amp; -&gt; int&amp;
+// 实参左rvalue, 形参就为右值引用，实参为lvaue时形参就为左值引用
+// 也就是说万能引用够判断原始实参为lvalue还是rvalue，是实现完美转发的关键
+
+func(l_ref);  // func&lt;const int&amp;&gt;(l_ref);  -&gt; const int&amp;   const左值引用
+cout &lt;&lt; endl;
+
+f1(arr);     // f1&lt;char, 4&gt;() -&gt; char (&amp;)[4]  左值引用
+cout &lt;&lt; endl;
+func(arr);   // func&lt;char(&amp;)[4]&gt;(arr);   左值引用
+
+return 0;</code></pre>
+<p>}</p>
+<pre><code>![image.png](https://cdn.nlark.com/yuque/0/2020/png/1565164/1608180753863-07a7b64c-a79f-4b22-8a82-fcd3ca7ab7bf.png#align=left&amp;display=inline&amp;height=312&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=312&amp;originWidth=308&amp;size=10788&amp;status=done&amp;style=none&amp;width=308)
+# 5、完美转发
+```cpp
+#include &lt;iostream&gt;
+using namespace std;
+
+void func(int&amp;&amp; t1, int&amp; t2)
+{
+    cout &lt;&lt; "void func(int&amp;&amp; t1, int&amp; t2)" &lt;&lt; endl;
+    t2++;
+}
+
+template &lt;typename F, typename T1, typename T2&gt;
+void test(F func, T1&amp;&amp; t1, T2&amp;&amp; t2)
+{
+    // func(t1, t2);  
+    // 直接调用上面函数会报错，不完美
+    // 原因：t1为右值引用，实参为rvalue时，完全合理，但t1为一个lvalue，lvalue作为实参传给func右值引用形参,出错
+    // 需要的特性：原来是rvalue,再次传参还是rvalue，lvalue也是
+    // 解决：把lvalue转变为xvalue，之前就提过可以使用static_cast, move
+    func(static_cast&lt;T1&amp;&amp;&gt;(t1), static_cast&lt;T2&amp;&amp;&gt;(t2)); 
+    func(std::move(t1), t2);
+
+    // 标准库提供std::forward来保持左值或右值
+    func(std::forward&lt;T1&gt;(t1), std::forward&lt;T2&gt;(t2));
+}
+
+int main()
+{
+    int k = 1;
+
+    test&lt;void(int&amp;&amp;, int&amp;)&gt;(func, 0, k); 
+    // 0是rvalue ，k是lvalue ，编译器推导T1 = int, T2 = int&amp;, F已显式指定为void(int&amp;&amp;, int&amp;)
+
+    cout &lt;&lt; k &lt;&lt; endl;
+
+    int&amp;&amp; r1 = std::forward&lt;int&gt;(k);          
+    //int&amp;&amp; r2 = std::forward&lt;int&amp;&gt;(k); // error int&amp; &amp;&amp; -&gt; int&amp; 所以r2需要为int&amp;类型
+
+    return 0;
+}</code></pre>
+<p>std::move 与 std::forward源码分析</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/// remove_reference</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token operator">></span>
+<span class="token keyword">struct</span> remove_reference <span class="token punctuation">{</span> <span class="token keyword">typedef</span> _Tp   type<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token operator">></span> 
+<span class="token keyword">struct</span> remove_reference<span class="token operator">&lt;</span>_Tp<span class="token operator">&amp;</span><span class="token operator">></span> <span class="token punctuation">{</span> <span class="token keyword">typedef</span> _Tp   type<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token operator">></span>
+<span class="token keyword">struct</span> remove_reference<span class="token operator">&lt;</span>_Tp<span class="token operator">&amp;&amp;</span><span class="token operator">></span> <span class="token punctuation">{</span> <span class="token keyword">typedef</span> _Tp   type<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 发现std::remove_reference&lt;_Tp>的作用是删除引用类型，并通过type别名返回无引用的类</span>
+<span class="token comment" spellcheck="true">/**
+   *  @brief  Convert a value to an rvalue.
+   *  @param  __t  A thing of arbitrary type.
+   *  @return The parameter cast to an rvalue-reference to allow moving it.
+  */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token operator">></span>
+<span class="token keyword">constexpr</span> <span class="token keyword">typename</span> std<span class="token operator">::</span>remove_reference<span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token operator">::</span>type<span class="token operator">&amp;&amp;</span> <span class="token function">move</span><span class="token punctuation">(</span>_Tp<span class="token operator">&amp;&amp;</span> __t<span class="token punctuation">)</span> <span class="token keyword">noexcept</span>
+<span class="token punctuation">{</span> 
+      <span class="token keyword">return</span> <span class="token keyword">static_cast</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> std<span class="token operator">::</span>remove_reference<span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token operator">::</span>type<span class="token operator">&amp;&amp;</span><span class="token operator">></span><span class="token punctuation">(</span>__t<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/**
+   *  @brief  Forward an lvalue.
+   *  @return The parameter cast to the specified type.
+   *
+   *  This function is used to implement "perfect forwarding".
+   */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token operator">></span>
+<span class="token keyword">constexpr</span> _Tp<span class="token operator">&amp;&amp;</span> <span class="token function">forward</span><span class="token punctuation">(</span><span class="token keyword">typename</span> std<span class="token operator">::</span>remove_reference<span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token operator">::</span>type<span class="token operator">&amp;</span> __t<span class="token punctuation">)</span> <span class="token keyword">noexcept</span>
+<span class="token punctuation">{</span> 
+    <span class="token keyword">return</span> <span class="token keyword">static_cast</span><span class="token operator">&lt;</span>_Tp<span class="token operator">&amp;&amp;</span><span class="token operator">></span><span class="token punctuation">(</span>__t<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+
+  <span class="token comment" spellcheck="true">/**
+   *  @brief  Forward an rvalue.
+   *  @return The parameter cast to the specified type.
+   *
+   *  This function is used to implement "perfect forwarding".
+   */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> _Tp<span class="token operator">></span>
+<span class="token keyword">constexpr</span> _Tp<span class="token operator">&amp;&amp;</span> <span class="token function">forward</span><span class="token punctuation">(</span><span class="token keyword">typename</span> std<span class="token operator">::</span>remove_reference<span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token operator">::</span>type<span class="token operator">&amp;&amp;</span> __t<span class="token punctuation">)</span> <span class="token keyword">noexcept</span>
+<span class="token punctuation">{</span>
+      <span class="token keyword">static_assert</span><span class="token punctuation">(</span><span class="token operator">!</span>std<span class="token operator">::</span>is_lvalue_reference<span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token operator">::</span>value<span class="token punctuation">,</span> <span class="token string">"template argument"</span>
+            <span class="token string">" substituting _Tp is an lvalue reference type"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token keyword">static_cast</span><span class="token operator">&lt;</span>_Tp<span class="token operator">&amp;&amp;</span><span class="token operator">></span><span class="token punctuation">(</span>__t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">wss</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://wss8.github.io/2020/12/21/%E5%80%BC%E7%B1%BB%E5%88%AB%E3%80%81%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E3%80%81%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E3%80%81%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91/">http://wss8.github.io/2020/12/21/%E5%80%BC%E7%B1%BB%E5%88%AB%E3%80%81%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E3%80%81%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E3%80%81%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">wss</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C-11/">
+                                    <span class="chip bg-color">C++11</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/12/21/%E5%80%BC%E7%B1%BB%E5%88%AB%E3%80%81%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E3%80%81%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E3%80%81%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="值类别、右值引用、移动构造、完美转发">
+                        
+                        <span class="card-title">值类别、右值引用、移动构造、完美转发</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C-11/" class="post-category">
+                                    C++11
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C-11/">
+                        <span class="chip bg-color">C++11</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/20/hello-world/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        
+                        <span class="card-title">Hello World</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            wss
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1 h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1 h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2020</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">wss</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/wss8" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1483306601@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1483306601" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1483306601" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script src="/js/snow.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

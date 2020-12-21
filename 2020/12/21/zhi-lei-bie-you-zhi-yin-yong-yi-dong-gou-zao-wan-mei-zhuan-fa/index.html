@@ -490,8 +490,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>[TOC]</p>
-<h1 id="1、值类别"><a href="#1、值类别" class="headerlink" title="1、值类别"></a>1、值类别</h1><h2 id="1-1、右值引用的引入"><a href="#1-1、右值引用的引入" class="headerlink" title="1.1、右值引用的引入"></a>1.1、右值引用的引入</h2><p>引用的本质</p>
+                <p>[toc]</p>
+<h2 id="1、值类别"><a href="#1、值类别" class="headerlink" title="1、值类别"></a>1、值类别</h2><h3 id="1-1、右值引用的引入"><a href="#1-1、右值引用的引入" class="headerlink" title="1.1、右值引用的引入"></a>1.1、右值引用的引入</h3><p>引用的本质</p>
 <ul>
 <li>编译器隐藏了引用变量内部保存引用对象的地址的事实</li>
 <li>引用变量也可以使用const修饰：const引用 和 non-const引用</li>
@@ -518,16 +518,16 @@
 </li>
 <li>注意：转移资源后应该断开临时对象释放资源的句柄，临时对象才可以安全析构</li>
 </ul>
-<h2 id="1-2、值类别（value-categories）"><a href="#1-2、值类别（value-categories）" class="headerlink" title="1.2、值类别（value categories）"></a>1.2、值类别（value categories）</h2><p>明确表达式概念</p>
+<h3 id="1-2、值类别（value-categories）"><a href="#1-2、值类别（value-categories）" class="headerlink" title="1.2、值类别（value categories）"></a>1.2、值类别（value categories）</h3><p>明确表达式概念</p>
 <ul>
 <li>表达式是_运算符_及其_操作数_的序列，语句是指一条语句，以分号作为结束标志</li>
-<li>因此一条语句可能不止一个表达式。如：int a = func(100);   a = (a &gt; b);   a = ((a &gt; b ? a : b) == a) ? a : b;</li>
+<li>因此一条语句可能不止一个表达式。如：<code>int a = func(100);   a = (a &gt; b);   a = ((a &gt; b ? a : b) == a) ? a : b</code>;</li>
 <li>构造函数的直接调用创建临时对象，属于函数调用，因此也是表达式。T var = T();  由两个表达式组成，T()是子表达式</li>
 </ul>
 <p>每个C++表达式都有两个独立的属性: 类型 （type）和 值类别（value categories）</p>
 <ul>
 <li>类型：用来表示表达式结果类型的属性<ul>
-<li>可以使用decltype推测表达式结果值的类型。如：decltype((x)) 、decltype(x = 10) </li>
+<li>可以使用decltype推测表达式结果值的类型。如：<code>decltype((x)) 、decltype(x = 10) </code></li>
 </ul>
 </li>
 <li>值类别：用来描述表达式结果值的一个属性，通过表达式的值对表达式进行分类<ul>
@@ -609,7 +609,7 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true">// 只列举部分。完整的可以查阅：https://en.cppreference.com/w/cpp/language/value_category</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="1-3、值类别的转换"><a href="#1-3、值类别的转换" class="headerlink" title="1.3、值类别的转换"></a>1.3、值类别的转换</h2><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<h3 id="1-3、值类别的转换"><a href="#1-3、值类别的转换" class="headerlink" title="1.3、值类别的转换"></a>1.3、值类别的转换</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>    
     <span class="token keyword">bool</span> f <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
@@ -651,7 +651,7 @@
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="2、右值引用、移动构造与移动赋值"><a href="#2、右值引用、移动构造与移动赋值" class="headerlink" title="2、右值引用、移动构造与移动赋值"></a>2、右值引用、移动构造与移动赋值</h1><p>右值引用实现资源转移</p>
+<h2 id="2、右值引用、移动构造与移动赋值"><a href="#2、右值引用、移动构造与移动赋值" class="headerlink" title="2、右值引用、移动构造与移动赋值"></a>2、右值引用、移动构造与移动赋值</h2><p>右值引用实现资源转移</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -814,7 +814,7 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/png/1565164/1608110040520-14b8bcb9-404a-4fbf-ad0a-abdaca2c807c.png#align=left&amp;display=inline&amp;height=314&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=380&amp;originWidth=797&amp;size=51832&amp;status=done&amp;style=none&amp;width=658" alt="image.png"></p>
-<h1 id="3、返回值优化-RVO"><a href="#3、返回值优化-RVO" class="headerlink" title="3、返回值优化(RVO)"></a>3、返回值优化(RVO)</h1><ul>
+<h2 id="3、返回值优化-RVO"><a href="#3、返回值优化-RVO" class="headerlink" title="3、返回值优化(RVO)"></a>3、返回值优化(RVO)</h2><ul>
 <li>RVO：返回值优化（Return Value Optimization），C++98已经支持的特性，是一个编译优化技术<ul>
 <li>函数返回时不调用拷贝构造或移动构造操作生成临时对象（省去了函数返回时的拷贝构造或移动构造）</li>
 <li>初始化对象时不创建只用于初始化相同类型的另一个对象的临时对象</li>
@@ -951,7 +951,7 @@ Test<span class="token operator">&amp;&amp;</span> <span class="token function">
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/png/1565164/1608135908581-cdd3e220-9771-40a4-86dd-a29e5e067b14.png#align=left&amp;display=inline&amp;height=691&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=691&amp;originWidth=1443&amp;size=178897&amp;status=done&amp;style=none&amp;width=1443" alt="image.png"></p>
-<h1 id="4、万能引用与引用折叠"><a href="#4、万能引用与引用折叠" class="headerlink" title="4、万能引用与引用折叠"></a>4、万能引用与引用折叠</h1><p>模板函数传参时编译器推导时可能遇到下面四种特殊情况</p>
+<h2 id="4、万能引用与引用折叠"><a href="#4、万能引用与引用折叠" class="headerlink" title="4、万能引用与引用折叠"></a>4、万能引用与引用折叠</h2><p>模板函数传参时编译器推导时可能遇到下面四种特殊情况</p>
 <ul>
 <li>左值引用 + 右值引用   int&amp;  &amp;&amp;          -&gt;  int&amp;           </li>
 <li>左值引用 + 左值引用   int&amp;  &amp;            -&gt;   int&amp;</li>
@@ -1006,7 +1006,7 @@ Test<span class="token operator">&amp;&amp;</span> <span class="token function">
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/png/1565164/1608180753863-07a7b64c-a79f-4b22-8a82-fcd3ca7ab7bf.png#align=left&amp;display=inline&amp;height=312&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=312&amp;originWidth=308&amp;size=10788&amp;status=done&amp;style=none&amp;width=308" alt="image.png"></p>
-<h1 id="5、完美转发"><a href="#5、完美转发" class="headerlink" title="5、完美转发"></a>5、完美转发</h1><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<h2 id="5、完美转发"><a href="#5、完美转发" class="headerlink" title="5、完美转发"></a>5、完美转发</h2><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
 <span class="token keyword">void</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">&amp;&amp;</span> t1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token operator">&amp;</span> t2<span class="token punctuation">)</span>
@@ -1335,8 +1335,8 @@ Test<span class="token operator">&amp;&amp;</span> <span class="token function">
             tocSelector: '#toc-content',
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h1 h2, h3, h4'
+            collapseDepth: Number('3'),
+            headingSelector: 'h2, h3, h4'
         });
 
         // modify the toc link href to support Chinese.
@@ -1348,7 +1348,7 @@ Test<span class="token operator">&amp;&amp;</span> <span class="token function">
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h1 h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
